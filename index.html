@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>USDJPY 定点観測ダッシュボード</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: 'Hiragino Kaku Gothic ProN', 'Noto Sans JP', sans-serif;
+    background: #0d1117;
+    color: #e6edf3;
+    min-height: 100vh;
+    padding: 24px;
+  }
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 24px;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+  h1 {
+    font-size: 22px;
+    color: #00d4ff;
+  }
+  .update-info {
+    color: #8b949e;
+    font-size: 13px;
+    text-align: right;
+  }
+  .update-info .time {
+    color: #00d4ff;
+    font-weight: bold;
+    font-size: 15px;
+  }
+
+  /* Price & Position Banner */
+  .price-banner {
+    background: linear-gradient(135deg, #161b22 0%, #1a2332 100%);
+    border: 1px solid #30363d;
+    border-radius: 12px;
+    padding: 20px 28px;
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+  .price-main {
+    display: flex;
+    align-items: baseline;
+    gap: 16px;
+  }
+  .price-value {
+    font-size: 42px;
+    font-weight: 700;
+    color: #f0f6fc;
+    letter-spacing: 1px;
+  }
+  .price-change {
+    font-size: 16px;
+    font-weight: 600;
+  }
+  .price-change.up { color: #3fb950; }
+  .price-change.down { color: #f85149; }
+  .price-change.flat { color: #8b949e; }
+
+  .position-badge {
+    padding: 8px 20px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 700;
+  }
+  .position-badge.long {
+    background: rgba(63, 185, 80, 0.15);
+    border: 1px solid #3fb950;
+    color: #3fb950;
+  }
+  .position-badge.nopos {
+    background: rgba(139, 148, 158, 0.15);
+    border: 1px solid #8b949e;
+    color: #8b949e;
+  }
+  .position-badge.short {
+    background: rgba(248, 81, 73, 0.15);
+    border: 1px solid #f85149;
+    color: #f85149;
+  }
+
+  .position-detail {
+    font-size: 13px;
+    color: #8b949e;
+    margin-top: 4px;
+  }
+  .position-detail span { color: #e6edf3; font-weight: 600; }
+
+  /* Cards Grid */
+  .grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin-bottom: 20px;
+  }
+  @media (max-width: 900px) {
+    .grid { grid-template-columns: 1fr; }
+  }
+
+  .card {
+    background: #161b22;
+    border: 1px solid #30363d;
+    border-radius: 10px;
+    padding: 18px;
+  }
+  .card.full-width {
+    grid-column: 1 / -1;
+  }
+  .card h2 {
+    font-size: 14px;
+    color: #00d4ff;
+    margin-bottom: 14px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid #21262d;
+  }
+
+  /* MTF Table */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+  }
+  th {
+    text-align: left;
+    color: #8b949e;
+    font-weight: 600;
+    padding: 6px 8px;
+    border-bottom: 1px solid #30363d;
+    font-size: 12px;
+  }
+  td {
+    padding: 7px 8px;
+    border-bottom: 1px solid #21262d;
+  }
+  tr:last-child td { border-bottom: none; }
+
+  .gc { color: #3fb950; font-weight: 700; }
+  .dc { color: #f85149; font-weight: 700; }
+  .neutral { color: #d29922; font-weight: 600; }
+  .improving { color: #58a6ff; }
+
+  .rsi-hot { color: #f85149; font-weight: 700; }
+  .rsi-cold { color: #58a6ff; font-weight: 700; }
+  .rsi-normal { color: #e6edf3; }
+
+  /* Monitoring Lines */
+  .line-table td:first-child {
+    font-family: 'SF Mono', 'Fira Code', monospace;
+    font-size: 14px;
+    font-weight: 700;
+    text-align: right;
+    white-space: nowrap;
+  }
+  .line-current {
+    background: rgba(0, 212, 255, 0.08);
+  }
+  .line-entry {
+    background: rgba(63, 185, 80, 0.08);
+  }
+  .line-sl {
+    background: rgba(248, 81, 73, 0.08);
+  }
+  .line-tp {
+    background: rgba(210, 153, 34, 0.08);
+  }
+
+  /* Judgment */
+  .judgment-item {
+    display: flex;
+    gap: 12px;
+    padding: 10px 0;
+    border-bottom: 1px solid #21262d;
+    align-items: flex-start;
+  }
+  .judgment-item:last-child { border-bottom: none; }
+  .judgment-label {
+    min-width: 100px;
+    font-weight: 700;
+    font-size: 13px;
+  }
+  .judgment-desc {
+    font-size: 13px;
+    color: #8b949e;
+    line-height: 1.5;
+  }
+
+  /* Account */
+  .account-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    gap: 12px;
+  }
+  .account-item {
+    text-align: center;
+  }
+  .account-item .label {
+    font-size: 11px;
+    color: #8b949e;
+    margin-bottom: 4px;
+  }
+  .account-item .val {
+    font-size: 18px;
+    font-weight: 700;
+  }
+  .account-item .val.green { color: #3fb950; }
+  .account-item .val.red { color: #f85149; }
+  .account-item .val.cyan { color: #00d4ff; }
+
+  /* Key Points */
+  .key-points {
+    list-style: none;
+    padding: 0;
+  }
+  .key-points li {
+    padding: 6px 0;
+    font-size: 13px;
+    line-height: 1.6;
+    border-bottom: 1px solid #21262d;
+  }
+  .key-points li:last-child { border-bottom: none; }
+  .key-points li::before {
+    content: '▸ ';
+    color: #00d4ff;
+  }
+
+  /* Other currencies */
+  .currency-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 5px 0;
+    border-bottom: 1px solid #21262d;
+    font-size: 13px;
+  }
+  .currency-row:last-child { border-bottom: none; }
+  .currency-pair { font-weight: 600; min-width: 80px; }
+  .currency-price { font-family: monospace; }
+
+  /* Footer */
+  .footer {
+    text-align: center;
+    color: #484f58;
+    font-size: 11px;
+    margin-top: 24px;
+    padding-top: 16px;
+    border-top: 1px solid #21262d;
+  }
+</style>
+</head>
+<body>
+
+<!-- ===== HEADER ===== -->
+<div class="header">
+  <div>
+    <h1>USDJPY 定点観測ダッシュボード</h1>
+  </div>
+  <div class="update-info">
+    <div class="time">2026-05-19 13:00</div>
+    <div>更新者：Claudian（定点③）</div>
+  </div>
+</div>
+
+<!-- ===== PRICE BANNER ===== -->
+<div class="price-banner">
+  <div>
+    <div class="price-main">
+      <span class="price-value">158.944</span>
+      <span class="price-change flat">+0pips（横ばい）</span>
+    </div>
+    <div class="position-detail">
+      Bid: 158.944 / Ask: 158.968 / Spread: 2.4pips
+    </div>
+  </div>
+  <div style="text-align: right;">
+    <div class="position-badge long">🔵 LONG 0.10 @ 158.997</div>
+    <div class="position-detail" style="margin-top: 8px;">
+      含み損益: <span style="color: #f85149;">-$0.03</span> | SL: <span>158.500</span> | TP: <span>159.500</span>
+    </div>
+  </div>
+</div>
+
+<!-- ===== MAIN GRID ===== -->
+<div class="grid">
+
+  <!-- MTF Technical -->
+  <div class="card full-width">
+    <h2>MTF テクニカル一覧</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>TF</th>
+          <th>RSI</th>
+          <th>MACD</th>
+          <th>Signal</th>
+          <th>差</th>
+          <th>状態</th>
+          <th>前回比</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>M5</td>
+          <td class="rsi-normal">50.30</td>
+          <td>0.0006</td>
+          <td>0.0014</td>
+          <td class="dc">-0.0008</td>
+          <td class="dc">DC</td>
+          <td style="color:#8b949e;">GC→DC転換。RSI冷却</td>
+        </tr>
+        <tr>
+          <td>M15</td>
+          <td class="rsi-normal">55.25</td>
+          <td>0.0246</td>
+          <td>0.0306</td>
+          <td class="dc">-0.0060</td>
+          <td class="dc">DC ⚠️</td>
+          <td style="color:#f85149;">GC崩壊（+0.0214→-0.0060）</td>
+        </tr>
+        <tr style="background: rgba(63,185,80,0.06);">
+          <td><strong>H1</strong></td>
+          <td class="rsi-normal">55.37</td>
+          <td><strong>0.0507</strong></td>
+          <td><strong>0.0447</strong></td>
+          <td class="gc"><strong>+0.0060</strong></td>
+          <td class="gc"><strong>GC ✅</strong></td>
+          <td style="color:#3fb950;"><strong>GC維持（11:06成立）</strong></td>
+        </tr>
+        <tr>
+          <td>H4</td>
+          <td class="rsi-normal">68.71</td>
+          <td>0.3439</td>
+          <td>0.3658</td>
+          <td class="dc">-0.0219</td>
+          <td class="dc">DC</td>
+          <td style="color:#8b949e;">横ばい（-0.0208→-0.0219）</td>
+        </tr>
+        <tr>
+          <td>D1</td>
+          <td class="rsi-normal">55.30</td>
+          <td>-0.0766</td>
+          <td>-0.3683</td>
+          <td class="improving">+0.2917</td>
+          <td class="neutral">MACD>Sig</td>
+          <td style="color:#58a6ff;">改善継続。ゼロライン接近</td>
+        </tr>
+        <tr>
+          <td>W1</td>
+          <td class="rsi-normal">57.23</td>
+          <td>1.3395</td>
+          <td>1.7190</td>
+          <td class="dc">-0.3795</td>
+          <td class="dc">DC</td>
+          <td style="color:#8b949e;">今週陽線形成中</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Monitoring Lines -->
+  <div class="card">
+    <h2>監視ライン</h2>
+    <table class="line-table">
+      <thead>
+        <tr><th>価格</th><th>距離</th><th>役割</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>160.000</td><td>+106</td><td>暴落前水準・介入リスク高</td></tr>
+        <tr class="line-tp"><td>159.500</td><td>+56</td><td>🎯 TP</td></tr>
+        <tr><td>159.071</td><td>+13</td><td>W1高値＝最重要抵抗</td></tr>
+        <tr class="line-entry"><td>158.997</td><td>+5</td><td>📍 エントリー価格</td></tr>
+        <tr class="line-current"><td><strong>158.944</strong></td><td><strong>---</strong></td><td><strong>🔵 現在値</strong></td></tr>
+        <tr class="line-sl"><td>158.500</td><td>-44</td><td>🛑 SL設定済み</td></tr>
+        <tr><td>158.000</td><td>-94</td><td>心理的節目</td></tr>
+        <tr><td>157.500</td><td>-144</td><td>上昇構造崩壊</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Trading Judgment -->
+  <div class="card">
+    <h2>売買判断</h2>
+    <div class="judgment-item">
+      <div class="judgment-label gc">ロング保有中</div>
+      <div class="judgment-desc">Buy 0.10@158.997。SL 158.5 / TP 159.5。<br>H1 GC維持が継続条件</div>
+    </div>
+    <div class="judgment-item">
+      <div class="judgment-label dc">EXIT検討</div>
+      <div class="judgment-desc">H1 GC崩壊時（MACD差が0以下）<br>→ SL到達前でも手動EXIT検討</div>
+    </div>
+    <div class="judgment-item">
+      <div class="judgment-label" style="color:#8b949e;">追加エントリー</div>
+      <div class="judgment-desc">非推奨。M15 GC崩壊中、M5もDC</div>
+    </div>
+    <div class="judgment-item">
+      <div class="judgment-label" style="color:#8b949e;">ショート</div>
+      <div class="judgment-desc">非推奨。D1改善中＋H1 GC維持</div>
+    </div>
+    <div class="judgment-item">
+      <div class="judgment-label" style="color:#d29922;">注視点</div>
+      <div class="judgment-desc">H1 GCの維持/崩壊。M15 DC(-0.006)がH1に波及するか。次回20:00で確認</div>
+    </div>
+  </div>
+
+  <!-- Account Info -->
+  <div class="card">
+    <h2>口座状況</h2>
+    <div class="account-grid">
+      <div class="account-item">
+        <div class="label">残高</div>
+        <div class="val cyan">$61.41</div>
+      </div>
+      <div class="account-item">
+        <div class="label">クレジット</div>
+        <div class="val">$100.00</div>
+      </div>
+      <div class="account-item">
+        <div class="label">有効証拠金</div>
+        <div class="val green">$161.38</div>
+      </div>
+      <div class="account-item">
+        <div class="label">含み損益</div>
+        <div class="val red">-$0.03</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Key Points -->
+  <div class="card">
+    <h2>要点</h2>
+    <ul class="key-points">
+      <li><strong>H1 GC維持が最重要</strong>。11:06成立のGC、差+0.0060で安定</li>
+      <li><strong>M15 GCが崩壊</strong>。H1 GCを下支えする力が弱まった</li>
+      <li>M5もDC転換。短期モメンタムは一旦停滞</li>
+      <li>D1ゼロライン接近継続（MACD -0.0766）</li>
+      <li>SL 158.5設定済み。最悪でも-50pips（-$0.50）</li>
+    </ul>
+  </div>
+
+  <!-- Other Currencies -->
+  <div class="card">
+    <h2>他通貨状況</h2>
+    <div class="currency-row">
+      <span class="currency-pair">EURUSD</span>
+      <span class="currency-price">1.16406 / 1.16425</span>
+      <span style="color:#8b949e;">ドルやや回復</span>
+    </div>
+    <div class="currency-row">
+      <span class="currency-pair">GBPUSD</span>
+      <span class="currency-price">1.34123 / 1.34148</span>
+      <span style="color:#8b949e;">ドルやや回復</span>
+    </div>
+    <div class="currency-row">
+      <span class="currency-pair">CHFJPY</span>
+      <span class="currency-price">202.277 / 202.315</span>
+      <span style="color:#8b949e;">円やや回復</span>
+    </div>
+    <div style="margin-top: 10px; font-size: 12px; color: #8b949e;">
+      朝のドル安＋円安が両方やや後退。方向感薄い展開。
+    </div>
+  </div>
+
+</div>
+
+<!-- ===== OBSERVATION HISTORY ===== -->
+<div class="card" style="margin-bottom: 20px;">
+  <h2>本日の観測履歴</h2>
+  <table>
+    <thead>
+      <tr><th>時刻</th><th>価格</th><th>H1</th><th>M15</th><th>ポジション</th><th>判断</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>8:00</td>
+        <td>158.817</td>
+        <td class="dc">DC (-0.0231)</td>
+        <td class="gc">GC (+0.0051)</td>
+        <td>ノーポジ</td>
+        <td>H1 GC待ち</td>
+      </tr>
+      <tr>
+        <td>9:31</td>
+        <td>158.915</td>
+        <td class="dc">DC (-0.0145)</td>
+        <td class="gc">GC (+0.0214)</td>
+        <td>ノーポジ</td>
+        <td>H1 GC接近中</td>
+      </tr>
+      <tr>
+        <td style="color:#d29922;">11:06</td>
+        <td>—</td>
+        <td class="gc">⚡GC成立</td>
+        <td>—</td>
+        <td>—</td>
+        <td>H1 GC転換確認</td>
+      </tr>
+      <tr style="background: rgba(0,212,255,0.05);">
+        <td><strong>13:00</strong></td>
+        <td><strong>158.944</strong></td>
+        <td class="gc">GC (+0.0060)</td>
+        <td class="dc">DC (-0.0060) ⚠️</td>
+        <td style="color:#3fb950;">Buy 0.10</td>
+        <td>様子見。SL 158.5</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- ===== RISK ===== -->
+<div class="card" style="margin-bottom: 20px;">
+  <h2>最大リスク</h2>
+  <div class="judgment-item">
+    <div class="judgment-label" style="color:#d29922;">🟡 介入リスク</div>
+    <div class="judgment-desc">158円台後半〜159円台は介入警戒ゾーン。推定あと約2回の余力</div>
+  </div>
+  <div class="judgment-item">
+    <div class="judgment-label" style="color:#d29922;">🟡 M15→H1波及</div>
+    <div class="judgment-desc">M15 GC崩壊がH1に波及→H1 GC崩壊の場合、ポジションEXIT検討が必要</div>
+  </div>
+</div>
+
+<div class="footer">
+  USDJPY 定点観測ダッシュボード — Powered by Claudian<br>
+  このダッシュボードは定点観測ごとにClaudianが更新します
+</div>
+
+</body>
+</html>
