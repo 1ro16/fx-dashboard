@@ -13,511 +13,241 @@
     min-height: 100vh;
     padding: 24px;
   }
-  .header {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    margin-bottom: 24px;
-    flex-wrap: wrap;
-    gap: 12px;
-  }
-  h1 {
-    font-size: 22px;
-    color: #00d4ff;
-  }
-  .update-info {
-    color: #8b949e;
-    font-size: 13px;
-    text-align: right;
-  }
-  .update-info .time {
-    color: #00d4ff;
-    font-weight: bold;
-    font-size: 15px;
-  }
-
-  /* Price & Position Banner */
-  .price-banner {
-    background: linear-gradient(135deg, #161b22 0%, #1a2332 100%);
-    border: 1px solid #30363d;
-    border-radius: 12px;
-    padding: 20px 28px;
-    margin-bottom: 20px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: 16px;
-  }
-  .price-main {
-    display: flex;
-    align-items: baseline;
-    gap: 16px;
-  }
-  .price-value {
-    font-size: 42px;
-    font-weight: 700;
-    color: #f0f6fc;
-    letter-spacing: 1px;
-  }
-  .price-change {
-    font-size: 16px;
-    font-weight: 600;
-  }
+  .header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 24px; flex-wrap: wrap; gap: 12px; }
+  h1 { font-size: 22px; color: #00d4ff; }
+  .update-info { color: #8b949e; font-size: 13px; text-align: right; }
+  .update-info .time { color: #00d4ff; font-weight: bold; font-size: 15px; }
+  .price-banner { background: linear-gradient(135deg, #161b22 0%, #1a2332 100%); border: 1px solid #30363d; border-radius: 12px; padding: 20px 28px; margin-bottom: 20px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px; }
+  .price-main { display: flex; align-items: baseline; gap: 16px; }
+  .price-value { font-size: 42px; font-weight: 700; color: #f0f6fc; letter-spacing: 1px; }
+  .price-change { font-size: 16px; font-weight: 600; }
   .price-change.up { color: #3fb950; }
   .price-change.down { color: #f85149; }
-  .price-change.flat { color: #8b949e; }
-
-  .position-badge {
-    padding: 8px 20px;
-    border-radius: 8px;
-    font-size: 14px;
-    font-weight: 700;
-  }
-  .position-badge.long {
-    background: rgba(63, 185, 80, 0.15);
-    border: 1px solid #3fb950;
-    color: #3fb950;
-  }
-  .position-badge.nopos {
-    background: rgba(139, 148, 158, 0.15);
-    border: 1px solid #8b949e;
-    color: #8b949e;
-  }
-  .position-badge.short {
-    background: rgba(248, 81, 73, 0.15);
-    border: 1px solid #f85149;
-    color: #f85149;
-  }
-
-  .position-detail {
-    font-size: 13px;
-    color: #8b949e;
-    margin-top: 4px;
-  }
+  .position-badge { padding: 8px 20px; border-radius: 8px; font-size: 14px; font-weight: 700; }
+  .position-badge.long { background: rgba(63, 185, 80, 0.15); border: 1px solid #3fb950; color: #3fb950; }
+  .position-detail { font-size: 13px; color: #8b949e; margin-top: 4px; }
   .position-detail span { color: #e6edf3; font-weight: 600; }
-
-  /* Cards Grid */
-  .grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 16px;
-    margin-bottom: 20px;
-  }
-  @media (max-width: 900px) {
-    .grid { grid-template-columns: 1fr; }
-  }
-
-  .card {
-    background: #161b22;
-    border: 1px solid #30363d;
-    border-radius: 10px;
-    padding: 18px;
-  }
-  .card.full-width {
-    grid-column: 1 / -1;
-  }
-  .card h2 {
-    font-size: 14px;
-    color: #00d4ff;
-    margin-bottom: 14px;
-    padding-bottom: 8px;
-    border-bottom: 1px solid #21262d;
-  }
-
-  /* MTF Table */
-  table {
-    width: 100%;
-    border-collapse: collapse;
-    font-size: 13px;
-  }
-  th {
-    text-align: left;
-    color: #8b949e;
-    font-weight: 600;
-    padding: 6px 8px;
-    border-bottom: 1px solid #30363d;
-    font-size: 12px;
-  }
-  td {
-    padding: 7px 8px;
-    border-bottom: 1px solid #21262d;
-  }
+  .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 20px; }
+  @media (max-width: 900px) { .grid { grid-template-columns: 1fr; } }
+  .card { background: #161b22; border: 1px solid #30363d; border-radius: 10px; padding: 18px; }
+  .card.full-width { grid-column: 1 / -1; }
+  .card h2 { font-size: 14px; color: #00d4ff; margin-bottom: 14px; padding-bottom: 8px; border-bottom: 1px solid #21262d; }
+  table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  th { text-align: left; color: #8b949e; font-weight: 600; padding: 6px 8px; border-bottom: 1px solid #30363d; font-size: 12px; }
+  td { padding: 7px 8px; border-bottom: 1px solid #21262d; }
   tr:last-child td { border-bottom: none; }
-
   .gc { color: #3fb950; font-weight: 700; }
   .dc { color: #f85149; font-weight: 700; }
-  .neutral { color: #d29922; font-weight: 600; }
   .improving { color: #58a6ff; }
-
-  .rsi-hot { color: #f85149; font-weight: 700; }
-  .rsi-cold { color: #58a6ff; font-weight: 700; }
   .rsi-normal { color: #e6edf3; }
-
-  /* Monitoring Lines */
-  .line-table td:first-child {
-    font-family: 'SF Mono', 'Fira Code', monospace;
-    font-size: 14px;
-    font-weight: 700;
-    text-align: right;
-    white-space: nowrap;
-  }
-  .line-current {
-    background: rgba(0, 212, 255, 0.08);
-  }
-  .line-entry {
-    background: rgba(63, 185, 80, 0.08);
-  }
-  .line-sl {
-    background: rgba(248, 81, 73, 0.08);
-  }
-  .line-tp {
-    background: rgba(210, 153, 34, 0.08);
-  }
-
-  /* Judgment */
-  .judgment-item {
-    display: flex;
-    gap: 12px;
-    padding: 10px 0;
-    border-bottom: 1px solid #21262d;
-    align-items: flex-start;
-  }
+  .line-table td:first-child { font-family: 'SF Mono', 'Fira Code', monospace; font-size: 14px; font-weight: 700; text-align: right; white-space: nowrap; }
+  .line-current { background: rgba(0, 212, 255, 0.08); }
+  .line-entry { background: rgba(63, 185, 80, 0.08); }
+  .line-sl { background: rgba(248, 81, 73, 0.08); }
+  .line-tp { background: rgba(210, 153, 34, 0.08); }
+  .judgment-item { display: flex; gap: 12px; padding: 10px 0; border-bottom: 1px solid #21262d; align-items: flex-start; }
   .judgment-item:last-child { border-bottom: none; }
-  .judgment-label {
-    min-width: 100px;
-    font-weight: 700;
-    font-size: 13px;
-  }
-  .judgment-desc {
-    font-size: 13px;
-    color: #8b949e;
-    line-height: 1.5;
-  }
-
-  /* Account */
-  .account-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
-    gap: 12px;
-  }
-  .account-item {
-    text-align: center;
-  }
-  .account-item .label {
-    font-size: 11px;
-    color: #8b949e;
-    margin-bottom: 4px;
-  }
-  .account-item .val {
-    font-size: 18px;
-    font-weight: 700;
-  }
+  .judgment-label { min-width: 100px; font-weight: 700; font-size: 13px; }
+  .judgment-desc { font-size: 13px; color: #8b949e; line-height: 1.5; }
+  .account-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 12px; }
+  .account-item { text-align: center; }
+  .account-item .label { font-size: 11px; color: #8b949e; margin-bottom: 4px; }
+  .account-item .val { font-size: 18px; font-weight: 700; }
   .account-item .val.green { color: #3fb950; }
   .account-item .val.red { color: #f85149; }
   .account-item .val.cyan { color: #00d4ff; }
-
-  /* Key Points */
-  .key-points {
-    list-style: none;
-    padding: 0;
-  }
-  .key-points li {
-    padding: 6px 0;
-    font-size: 13px;
-    line-height: 1.6;
-    border-bottom: 1px solid #21262d;
-  }
+  .key-points { list-style: none; padding: 0; }
+  .key-points li { padding: 6px 0; font-size: 13px; line-height: 1.6; border-bottom: 1px solid #21262d; }
   .key-points li:last-child { border-bottom: none; }
-  .key-points li::before {
-    content: '▸ ';
-    color: #00d4ff;
-  }
-
-  /* Other currencies */
-  .currency-row {
-    display: flex;
-    justify-content: space-between;
-    padding: 5px 0;
-    border-bottom: 1px solid #21262d;
-    font-size: 13px;
-  }
+  .key-points li::before { content: '▸ '; color: #00d4ff; }
+  .currency-row { display: flex; justify-content: space-between; padding: 5px 0; border-bottom: 1px solid #21262d; font-size: 13px; }
   .currency-row:last-child { border-bottom: none; }
   .currency-pair { font-weight: 600; min-width: 80px; }
   .currency-price { font-family: monospace; }
-
-  /* Footer */
-  .footer {
-    text-align: center;
-    color: #484f58;
-    font-size: 11px;
-    margin-top: 24px;
-    padding-top: 16px;
-    border-top: 1px solid #21262d;
-  }
+  .rule-check { background: #0d1117; border: 1px solid #30363d; border-radius: 6px; padding: 12px; font-family: 'SF Mono', 'Fira Code', monospace; font-size: 12px; line-height: 1.8; }
+  .footer { text-align: center; color: #484f58; font-size: 11px; margin-top: 24px; padding-top: 16px; border-top: 1px solid #21262d; }
 </style>
 </head>
 <body>
 
-<!-- ===== HEADER ===== -->
 <div class="header">
-  <div>
-    <h1>USDJPY 定点観測ダッシュボード</h1>
-  </div>
+  <div><h1>USDJPY 定点観測ダッシュボード</h1></div>
   <div class="update-info">
-    <div class="time">2026-05-21 13:00</div>
-    <div>更新者：Claudian（定点③）</div>
+    <div class="time">2026-05-21 21:42</div>
+    <div>更新者：Claudian（定点④）</div>
   </div>
 </div>
 
-<!-- ===== PRICE BANNER ===== -->
 <div class="price-banner">
   <div>
     <div class="price-main">
-      <span class="price-value">158.953</span>
-      <span class="price-change up">+6.4pips（9:31比）⚡H1 GC転換</span>
+      <span class="price-value">159.116</span>
+      <span class="price-change up">+16.3pips（13:00比）W1高値突破！含み益転換</span>
     </div>
     <div class="position-detail">
-      Bid: 158.953 / Ask: 158.980 / Spread: 2.7pips
+      Bid: 159.116 / Ask: 159.139 / Spread: 2.3pips
     </div>
   </div>
   <div style="text-align: right;">
     <div class="position-badge long">🔵 LONG 0.10 @ 158.997</div>
     <div class="position-detail" style="margin-top: 8px;">
-      含み損益: <span style="color: #f85149;">-$0.04</span> | SL: <span>158.500</span> | TP: <span>159.500</span>
+      含み損益: <span style="color: #3fb950;">+$0.12</span> | SL: <span>158.500</span> | TP: <span>159.500</span>
     </div>
   </div>
 </div>
 
-<!-- ===== MAIN GRID ===== -->
 <div class="grid">
 
-  <!-- MTF Technical -->
   <div class="card full-width">
     <h2>MTF テクニカル一覧</h2>
     <table>
       <thead>
-        <tr>
-          <th>TF</th>
-          <th>RSI</th>
-          <th>MACD</th>
-          <th>Signal</th>
-          <th>差</th>
-          <th>状態</th>
-          <th>9:31比</th>
-        </tr>
+        <tr><th>TF</th><th>RSI</th><th>MACD</th><th>Signal</th><th>差</th><th>状態</th><th>13:00比</th></tr>
       </thead>
       <tbody>
         <tr>
-          <td>M5</td>
-          <td class="rsi-normal">61.45</td>
-          <td>0.0178</td>
-          <td>0.0181</td>
-          <td class="dc">-0.0003</td>
-          <td class="dc">DC</td>
-          <td style="color:#8b949e;">ほぼフラット（変わらず）</td>
+          <td>M5</td><td class="rsi-normal">53.47</td><td>0.0239</td><td>0.0319</td>
+          <td class="dc">-0.0080</td><td class="dc">DC</td>
+          <td style="color:#d29922;">高値から押し戻し中</td>
         </tr>
         <tr>
-          <td>M15</td>
-          <td class="rsi-normal">62.78</td>
-          <td>0.0237</td>
-          <td>0.0137</td>
-          <td class="gc">+0.0100</td>
-          <td class="gc">GC</td>
-          <td style="color:#3fb950;">GC維持（+0.0101→+0.0100）安定</td>
+          <td>M15</td><td class="rsi-normal">58.48</td><td>0.0440</td><td>0.0320</td>
+          <td class="gc">+0.0120</td><td class="gc">GC</td>
+          <td style="color:#3fb950;">GC強化（+0.0100→+0.0120）</td>
         </tr>
         <tr style="background: rgba(63,185,80,0.08);">
-          <td><strong>H1</strong></td>
-          <td class="rsi-normal"><strong>53.19</strong></td>
-          <td><strong>-0.0118</strong></td>
-          <td><strong>-0.0299</strong></td>
-          <td class="gc"><strong>+0.0181</strong></td>
-          <td class="gc"><strong>⚡ GC転換</strong></td>
-          <td style="color:#3fb950;"><strong>DC(-0.0022)→GC(+0.0181)！</strong></td>
-        </tr>
-        <tr style="background: rgba(248,81,73,0.06);">
-          <td><strong>H4</strong></td>
-          <td class="rsi-normal"><strong>59.09</strong></td>
-          <td><strong>0.1795</strong></td>
-          <td><strong>0.2456</strong></td>
-          <td class="dc"><strong>-0.0661</strong></td>
-          <td class="dc"><strong>DC ⚠️</strong></td>
-          <td style="color:#58a6ff;"><strong>改善（-0.0695→-0.0661）</strong></td>
+          <td><strong>H1</strong></td><td class="rsi-normal"><strong>60.51</strong></td><td><strong>0.0402</strong></td><td><strong>0.0143</strong></td>
+          <td class="gc"><strong>+0.0259</strong></td><td class="gc"><strong>GC維持 ✅</strong></td>
+          <td style="color:#3fb950;"><strong>GC強化（+0.0181→+0.0259）</strong></td>
         </tr>
         <tr>
-          <td>D1</td>
-          <td class="rsi-normal">55.20</td>
-          <td>0.0453</td>
-          <td>-0.2522</td>
-          <td class="gc">+0.2975</td>
-          <td class="gc">MACD>0維持</td>
-          <td style="color:#3fb950;">プラス圏強化（0.0393→0.0453）</td>
+          <td><strong>H4</strong></td><td class="rsi-normal"><strong>63.14</strong></td><td><strong>0.1743</strong></td><td><strong>0.2173</strong></td>
+          <td class="dc"><strong>-0.0430</strong></td><td class="dc"><strong>DC</strong></td>
+          <td style="color:#58a6ff;"><strong>大幅改善（-0.0661→-0.0430・35%縮小）</strong></td>
         </tr>
         <tr>
-          <td>W1</td>
-          <td class="rsi-normal">—</td>
-          <td>—</td>
-          <td>—</td>
-          <td class="dc">—</td>
-          <td class="dc">DC</td>
-          <td style="color:#8b949e;">—</td>
+          <td>D1</td><td class="rsi-normal">56.27</td><td>0.0574</td><td>-0.2509</td>
+          <td class="gc">+0.3083</td><td class="gc">MACD>0維持</td>
+          <td style="color:#3fb950;">プラス圏さらに強化（0.0453→0.0574）</td>
+        </tr>
+        <tr>
+          <td>W1</td><td class="rsi-normal">—</td><td>—</td><td>—</td>
+          <td class="dc">—</td><td class="dc">DC</td><td style="color:#8b949e;">—</td>
         </tr>
       </tbody>
     </table>
   </div>
 
-  <!-- Monitoring Lines -->
   <div class="card">
     <h2>監視ライン</h2>
     <table class="line-table">
-      <thead>
-        <tr><th>価格</th><th>距離</th><th>役割</th></tr>
-      </thead>
+      <thead><tr><th>価格</th><th>距離</th><th>役割</th></tr></thead>
       <tbody>
-        <tr><td>160.000</td><td>+105</td><td>暴落前水準・介入リスク高</td></tr>
-        <tr class="line-tp"><td>159.500</td><td>+55</td><td>🎯 TP</td></tr>
-        <tr><td>159.297</td><td>+34</td><td>+30pips→SL建値引上げ</td></tr>
-        <tr><td>159.071</td><td>+12</td><td>W1高値（再突破で上昇加速）</td></tr>
-        <tr class="line-entry"><td>158.997</td><td>+4</td><td>📍 エントリー（あと4pips！）</td></tr>
-        <tr class="line-current"><td><strong>158.953</strong></td><td><strong>---</strong></td><td><strong>🔵 現在値（⚡H1 GC転換！）</strong></td></tr>
-        <tr class="line-sl"><td>158.500</td><td>-45</td><td>🛑 SL設定済み</td></tr>
-        <tr><td>158.000</td><td>-95</td><td>心理的節目</td></tr>
+        <tr><td>160.000</td><td>+88</td><td>暴落前水準・介入リスク高</td></tr>
+        <tr class="line-tp"><td>159.500</td><td>+38</td><td>🎯 TP</td></tr>
+        <tr><td>159.297</td><td>+18</td><td>+30pips→SL建値引上げ（あと18pips）</td></tr>
+        <tr><td>159.173</td><td>+6</td><td>本日高値</td></tr>
+        <tr class="line-current"><td><strong>159.116</strong></td><td><strong>---</strong></td><td><strong>🔵 現在値（含み益+$0.12・W1高値上）</strong></td></tr>
+        <tr><td>159.071</td><td>-4</td><td>W1高値（突破済み✅サポート転換テスト中）</td></tr>
+        <tr class="line-entry"><td>158.997</td><td>-12</td><td>📍 エントリー価格（下にあり）</td></tr>
+        <tr class="line-sl"><td>158.500</td><td>-62</td><td>🛑 SL設定済み</td></tr>
       </tbody>
     </table>
   </div>
 
-  <!-- Trading Judgment -->
   <div class="card">
     <h2>売買判断</h2>
     <div class="judgment-item">
-      <div class="judgment-label" style="color:#3fb950;">ロング保有中</div>
-      <div class="judgment-desc">Buy 0.10@158.997。SL 158.5 / TP 159.5。<br>含み損-$0.04。エントリー価格まであと4pips</div>
+      <div class="judgment-label" style="color:#3fb950;">ロング保有中（含み益）</div>
+      <div class="judgment-desc">Buy 0.10@158.997。SL 158.5 / TP 159.5。<br>含み益+$0.12（+11.9pips）。W1高値159.071突破済み</div>
     </div>
     <div class="judgment-item">
-      <div class="judgment-label gc">⚡ H1 GC転換成立</div>
-      <div class="judgment-desc">5/19パターン再現中。11:06 GC→18:37 W1高値突破<br>ただしH4 DC(-0.0661)は5/19(-0.0208)の3倍深い</div>
+      <div class="judgment-label gc">H1 GC維持＋強化中</div>
+      <div class="judgment-desc">H1 GC差+0.0259。13:00の+0.0181からさらに強化<br>5/19パターン再現中（GC→W1高値突破→TP方向）</div>
     </div>
     <div class="judgment-item">
       <div class="judgment-label" style="color:#d29922;">SL建値引上げ</div>
-      <div class="judgment-desc">159.297到達（+30pips）でSLを建値158.997に引上げ</div>
+      <div class="judgment-desc">159.297到達（+30pips）であと18pips。SLを建値158.997に引上げ</div>
     </div>
     <div class="judgment-item">
       <div class="judgment-label" style="color:#3fb950;">D1プラス圏強化</div>
-      <div class="judgment-desc">D1 MACD 0.0453。中長期の方向性は上。<br>M15 GC維持＋H1 GC成立で3足GC</div>
+      <div class="judgment-desc">D1 MACD 0.0574（+0.3083）。中長期の方向性は上。<br>H4 DCも大幅改善（-0.0430）で環境好転</div>
     </div>
   </div>
 
-  <!-- Account Info -->
   <div class="card">
     <h2>口座状況</h2>
     <div class="account-grid">
-      <div class="account-item">
-        <div class="label">残高</div>
-        <div class="val cyan">$61.41</div>
-      </div>
-      <div class="account-item">
-        <div class="label">クレジット</div>
-        <div class="val">$100.00</div>
-      </div>
-      <div class="account-item">
-        <div class="label">有効証拠金</div>
-        <div class="val cyan">$161.37</div>
-      </div>
-      <div class="account-item">
-        <div class="label">含み損益</div>
-        <div class="val red">-$0.04</div>
-      </div>
+      <div class="account-item"><div class="label">残高</div><div class="val cyan">$61.41</div></div>
+      <div class="account-item"><div class="label">クレジット</div><div class="val">$100.00</div></div>
+      <div class="account-item"><div class="label">有効証拠金</div><div class="val cyan">$161.53</div></div>
+      <div class="account-item"><div class="label">含み損益</div><div class="val green">+$0.12</div></div>
     </div>
   </div>
 
-  <!-- Key Points -->
   <div class="card">
     <h2>要点</h2>
     <ul class="key-points">
-      <li><strong>⚡ H1 GC転換成立！</strong> DC(-0.0022)→GC(+0.0181)。5/19パターン（GC→W1高値突破）の再現可能性</li>
-      <li><strong>M15/H1の2足GCが成立</strong>。価格もエントリー(158.997)まであと4pips</li>
-      <li><strong>H4 DC改善中</strong>（-0.0695→-0.0661）だが依然深い。5/19(-0.0208)の3倍＝前回より逆風強い</li>
-      <li><strong>D1 MACDプラス圏強化</strong>（0.0393→0.0453）。中長期の土台は固い</li>
-      <li><strong>保有継続。159.297到達でSL建値引上げ</strong>。H1 GC崩壊(DC-0.03)なら手動EXIT検討</li>
+      <li><strong>W1高値159.071を突破！</strong> 5/19パターン完全再現。含み益+$0.12に転換</li>
+      <li><strong>H1 GC維持＋強化</strong>（+0.0181→+0.0259）。13:00の成立から8時間以上持続中</li>
+      <li><strong>H4 DC大幅改善</strong>（-0.0661→-0.0430・35%縮小）。中期逆風が弱まっている</li>
+      <li><strong>D1 MACDプラス圏さらに強化</strong>（0.0453→0.0574）。土台が固い</li>
+      <li><strong>TP 159.500まであと38pips</strong>。159.297到達でSL建値引上げ（あと18pips）</li>
     </ul>
   </div>
 
-  <!-- Other Currencies -->
   <div class="card">
     <h2>他通貨状況</h2>
-    <div class="currency-row">
-      <span class="currency-pair">EURUSD</span>
-      <span class="currency-price">1.16184 / 1.16204</span>
-      <span style="color:#8b949e;">ドルやや弱含み</span>
-    </div>
-    <div class="currency-row">
-      <span class="currency-pair">GBPUSD</span>
-      <span class="currency-price">1.34258 / 1.34283</span>
-      <span style="color:#8b949e;">ドルやや弱含み</span>
-    </div>
-    <div class="currency-row">
-      <span class="currency-pair">USDCHF</span>
-      <span class="currency-price">0.78709 / 0.78734</span>
-      <span style="color:#8b949e;">ドル売り</span>
-    </div>
-    <div class="currency-row">
-      <span class="currency-pair">CHFJPY</span>
-      <span class="currency-price">201.917 / 201.955</span>
-      <span style="color:#8b949e;">9:31比+12pips（円安継続）</span>
-    </div>
+    <div class="currency-row"><span class="currency-pair">EURUSD</span><span class="currency-price">1.16015 / 1.16035</span><span style="color:#8b949e;">ドル回復</span></div>
+    <div class="currency-row"><span class="currency-pair">GBPUSD</span><span class="currency-price">1.34190 / 1.34214</span><span style="color:#8b949e;">ドル回復</span></div>
+    <div class="currency-row"><span class="currency-pair">USDCHF</span><span class="currency-price">0.78815 / 0.78837</span><span style="color:#8b949e;">ドル買い</span></div>
+    <div class="currency-row"><span class="currency-pair">CHFJPY</span><span class="currency-price">201.855 / 201.888</span><span style="color:#8b949e;">13:00比横ばい</span></div>
     <div style="margin-top: 10px; font-size: 12px; color: #8b949e;">
-      ドルやや弱含み＋円安方向。円安がUSDJPYを下支え。日経35,517。
+      ドル回復方向＋円安維持。ドル高＋円安＝USDJPY上昇の理想的な環境。日経35,531。
     </div>
   </div>
 
 </div>
 
-<!-- ===== OBSERVATION HISTORY ===== -->
+<!-- ===== RULE AUTO-CHECK (Phase 2) ===== -->
+<div class="card" style="margin-bottom: 20px;">
+  <h2>ルール自動チェック（Phase 2）</h2>
+  <div class="rule-check">
+    <span class="gc">1A 標準ロング：✅ 全条件充足（保有中）</span><br>
+    <span class="gc">3C 手動EXIT ：✅ 不要（H1 GC維持＋強化中）</span><br>
+    <span style="color:#d29922;">3D トレーリング：❌ 非該当（+11.9pips &lt; +30pips）→ 159.297であと18pips</span><br>
+    <span class="gc">5B 離席前確認：✅ SL/TP設定済み</span><br>
+    <span style="color:#00d4ff;"><strong>総合判断：保有継続。H1 GC強化＋W1高値突破で好調。TP方向へ。</strong></span>
+  </div>
+</div>
+
 <div class="card" style="margin-bottom: 20px;">
   <h2>本日の観測履歴（5/21）</h2>
   <table>
-    <thead>
-      <tr><th>時刻</th><th>価格</th><th>H1</th><th>H4</th><th>D1</th><th>判断</th></tr>
-    </thead>
+    <thead><tr><th>時刻</th><th>価格</th><th>H1</th><th>H4</th><th>D1</th><th>判断</th></tr></thead>
     <tbody>
-      <tr>
-        <td>8:28</td>
-        <td>158.881</td>
-        <td class="dc">DC (-0.0076)</td>
-        <td class="dc">DC (-0.0702) ⚠️</td>
-        <td class="gc">MACD>0 (+0.2915)</td>
-        <td>含み損。SLに委ねて保有継続</td>
-      </tr>
-      <tr>
-        <td>9:31</td>
-        <td>158.889</td>
-        <td class="dc">DC (-0.0022) ↑</td>
-        <td class="dc">DC (-0.0695) ⚠️</td>
-        <td class="gc">MACD>0 (+0.2922)</td>
-        <td>H1改善中。保有継続</td>
-      </tr>
+      <tr><td>8:28</td><td>158.881</td><td class="dc">DC (-0.0076)</td><td class="dc">DC (-0.0702) ⚠️</td><td class="gc">MACD>0 (+0.2915)</td><td>含み損。SL委ね</td></tr>
+      <tr><td>9:31</td><td>158.889</td><td class="dc">DC (-0.0022) ↑</td><td class="dc">DC (-0.0695) ⚠️</td><td class="gc">MACD>0 (+0.2922)</td><td>H1改善中</td></tr>
+      <tr><td>13:00</td><td>158.953</td><td class="gc">⚡ GC (+0.0181)</td><td class="dc">DC (-0.0661) ↑</td><td class="gc">MACD>0 (+0.2975)</td><td>⚡H1 GC成立！</td></tr>
       <tr style="background: rgba(63,185,80,0.08);">
-        <td><strong>13:00</strong></td>
-        <td><strong>158.953</strong></td>
-        <td class="gc"><strong>⚡ GC (+0.0181)</strong></td>
-        <td class="dc"><strong>DC (-0.0661) ↑</strong></td>
-        <td class="gc"><strong>MACD>0 (+0.2975)</strong></td>
-        <td><strong>⚡H1 GC成立！保有継続</strong></td>
+        <td><strong>21:42</strong></td><td><strong>159.116</strong></td>
+        <td class="gc"><strong>GC (+0.0259) ↑</strong></td><td class="dc"><strong>DC (-0.0430) ↑↑</strong></td>
+        <td class="gc"><strong>MACD>0 (+0.3083)</strong></td>
+        <td><strong>含み益+$0.12。W1突破！</strong></td>
       </tr>
     </tbody>
   </table>
 </div>
 
-<!-- ===== RISK ===== -->
 <div class="card" style="margin-bottom: 20px;">
   <h2>最大リスク</h2>
   <div class="judgment-item">
     <div class="judgment-label" style="color:#d29922;">🟡 介入リスク</div>
-    <div class="judgment-desc">158円台後半〜159円台は介入警戒ゾーン。推定あと約2回の余力</div>
+    <div class="judgment-desc">159円台は介入警戒ゾーン。推定あと約2回の余力。159.5のTP到達前に介入が入る可能性</div>
   </div>
   <div class="judgment-item">
-    <div class="judgment-label" style="color:#d29922;">🟡 H4 DC依然深い</div>
-    <div class="judgment-desc">H4 DC差-0.0661（改善中だが5/19の3倍深い）。H1 GCを押し戻すリスク</div>
+    <div class="judgment-label" style="color:#d29922;">🟡 5/19のH1 GC崩壊パターン</div>
+    <div class="judgment-desc">5/19はH1 GC 12時間で崩壊。今回は13:00から約9時間経過。深夜〜明朝のGC維持が鍵</div>
   </div>
 </div>
 
